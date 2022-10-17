@@ -2,11 +2,10 @@ import express from "express";
 // import asyncHandler from "express-async-handler";
 // import Product from "../models/productModel.js";
 // import mongoose from "mongoose";
-import { getProducts, getProductById } from "../controllers/productControllers.js";
+import { authUser } from "../controllers/userControllers.js";
 
 const router = express.Router();
 
-router.route("/").get(getProducts);
-router.route("/:id").get(getProductById);
+router.post("/login", authUser);
 
 export default router;
