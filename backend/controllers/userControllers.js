@@ -1,10 +1,12 @@
-import express from "express";
+// import express from "express";
 import asyncHandler from "express-async-handler";
+import generateToken from "../utils/generateToken.js";
 import User from "../models/userModel.js";
-import mongoose from "mongoose";
+import { rmSync } from "fs";
+// import mongoose from "mongoose";
 
-// @desc   Fetch all products
-// @route  Get /api/products
+// @desc   Auth user & get token
+// @route  Get /api/users/login
 // @access Public
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
@@ -17,7 +19,7 @@ const authUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
-      token: null,
+      token: generateToken(user._id),
     });
   } else {
     res.status(401);
@@ -25,4 +27,56 @@ const authUser = asyncHandler(async (req, res) => {
   }
 });
 
-export { authUser };
+// @desc   Register a new user
+// @route  Get /api/users
+// @access Public
+const registerUser = asyncHandler(async (req, res) => {
+  const { name, email, password } = req.body;
+
+  const userExists = await User.findOne({ email });
+
+  if (userExists) {
+    res.status(400);
+    throw new Error("User already exists");
+  }
+
+  const user = await User.create({
+    name,
+    email,
+    password,
+  });
+
+  if (user) {
+    res.status(201).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+      token: generateToken(user._id),
+    });
+  } else {
+    res.status(400);
+    throw new Error("Invalid user data");
+  }
+});
+
+// @desc   Get user profile
+// @route  Get /api/users/profile
+// @access Privat
+const getUserProfile = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
+});
+
+export { authUser, getUserProfile, registerUser };
