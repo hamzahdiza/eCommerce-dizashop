@@ -5,6 +5,8 @@ import HomePage from "../page/HomePage";
 import ProductPage from "../page/ProductPage";
 import CartPage from "../page/CartPage";
 import LoginPage from "../page/LoginPage";
+import RegisterPage from "../page/RegisterPage";
+import ProfilePage from "../page/ProfilePage";
 
 const Routes = () => {
   return (
@@ -13,6 +15,8 @@ const Routes = () => {
         <Switch>
           <Route path="/" element={<MainApp />}>
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
             <Route path="/product/:id" element={<ProductPage />} />
             <Route path="/cart" element={<CartPage />}>
               <Route path=":id" element={<CartPage />} />
