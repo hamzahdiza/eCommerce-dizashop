@@ -7,6 +7,7 @@ import CartPage from "../page/CartPage";
 import LoginPage from "../page/LoginPage";
 import RegisterPage from "../page/RegisterPage";
 import ProfilePage from "../page/ProfilePage";
+import ShippingPage from "../page/ShippingPage";
 
 const Routes = () => {
   return (
@@ -14,6 +15,7 @@ const Routes = () => {
       <Router>
         <Switch>
           <Route path="/" element={<MainApp />}>
+            <Route path="/shipping" element={<ShippingPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/profile" element={<ProfilePage />} />

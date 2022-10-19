@@ -6,7 +6,7 @@ import Rating from "../components/Rating";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { listProductDetails } from "../actions/productActions";
-import { addToCart } from "../actions/cartActions";
+// import { addToCart } from "../actions/cartActions";
 
 const ProductPage = () => {
   const [qty, setQty] = useState(1);
@@ -22,14 +22,14 @@ const ProductPage = () => {
     dispatch(listProductDetails(id));
   }, [dispatch, id]);
 
-  // const addToCartHandler = () => {
-  //   navigate(`/cart/${id}?qty=${qty}`);
-  // };
-
   const addToCartHandler = () => {
-    dispatch(addToCart(id, qty));
-    navigate("/cart");
+    navigate(`/cart/${id}?qty=${qty}`);
   };
+
+  // const addToCartHandler = () => {
+  //   dispatch(addToCart(id, qty));
+  //   navigate("/cart");
+  // };
 
   return (
     <>
