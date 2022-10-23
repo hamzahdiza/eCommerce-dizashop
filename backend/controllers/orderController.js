@@ -31,13 +31,13 @@ const addOrderItems = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc   Get Order By ID
-// @route  Get /api/orders/:id
-// @access Private
+// @desc    Get order by ID
+// @route   GET /api/orders/:id
+// @access  Private
 const getOrderById = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id).populate("user", "name email");
 
-  if (order && (req.user.isAdmin || order.user._id.equals(req.user._id))) {
+  if (order) {
     res.json(order);
   } else {
     res.status(404);
@@ -45,9 +45,9 @@ const getOrderById = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc   Update order to paid
-// @route  Get /api/orders/:id/pay
-// @access Private
+// @desc    Update order to paid
+// @route   GET /api/orders/:id/pay
+// @access  Private
 const updateOrderToPaid = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id);
 
@@ -57,7 +57,7 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
     order.paymentResult = {
       id: req.body.id,
       status: req.body.status,
-      update_time: req.body.update.time,
+      update_time: req.body.update_time,
       email_address: req.body.payer.email_address,
     };
 
