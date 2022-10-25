@@ -47,7 +47,7 @@ export const login = (email, password) => async (dispatch) => {
       payload: data,
     });
 
-    toast.success("Login Successfully!");
+    toast.success("Login Successfully!", { autoClose: 3000 });
 
     localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
@@ -86,18 +86,29 @@ export const register = (name, email, password) => async (dispatch) => {
       payload: data,
     });
 
-    toast.success("User Register Successfully!");
+    toast.success("User Register Successfully!", { autoClose: 3000 });
 
     dispatch({
       type: USER_LOGIN_SUCCESS,
       payload: data,
     });
+    toast.success("Login Successfully!", { autoClose: 3000 });
 
     localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: USER_REGISTER_FAIL,
       payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+    });
+    toast.error("Delete Product Failed", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
     });
   }
 };
@@ -159,7 +170,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
       type: USER_UPDATE_PROFILE_SUCCESS,
       payload: data,
     });
-    toast.success("Update Successfully!");
+    toast.success("Update Profile Successfully!", { autoClose: 3000 });
 
     dispatch({
       type: USER_LOGIN_SUCCESS,
@@ -229,7 +240,7 @@ export const deleteUser = (id) => async (dispatch, getState) => {
     dispatch({
       type: USER_DELETE_SUCCESS,
     });
-    toast.success("Delete user successfully!");
+    toast.success("Delete user successfully!", { autoClose: 3000 });
   } catch (error) {
     const message = error.response && error.response.data.message ? error.response.data.message : error.message;
     if (message === "Not authorized, token failed") {
