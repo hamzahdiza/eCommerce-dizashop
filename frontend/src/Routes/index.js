@@ -12,6 +12,7 @@ import PaymentPage from "../page/PaymentPage";
 import PlaceOrderPage from "../page/PlaceOrderPage";
 import OrderPage from "../page/OrderPage";
 import UserListPage from "../page/UserListPage";
+import UserEditPage from "../page/UserEditPage";
 
 const Routes = () => {
   return (
@@ -32,6 +33,7 @@ const Routes = () => {
               <Route path="" element={<CartPage />} />
             </Route>
             <Route path="/admin/userlist" element={<UserListPage />} />
+            <Route path="/admin/user/:id/edit" element={<UserEditPage />} />
             <Route path="/" element={<HomePage />} exact />
           </Route>
         </Switch>
