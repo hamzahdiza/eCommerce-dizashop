@@ -7,7 +7,43 @@ import mongoose from "mongoose";
 // @route  Get /api/products
 // @access Public
 const getProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find({});
+  const keywordName = req.query.keyword
+    ? {
+        name: {
+          $regex: req.query.keyword,
+          $options: "i",
+        },
+      }
+    : {};
+
+  const keywordBrand = req.query.keyword
+    ? {
+        brand: {
+          $regex: req.query.keyword,
+          $options: "i",
+        },
+      }
+    : {};
+
+  const keywordDescription = req.query.keyword
+    ? {
+        description: {
+          $regex: req.query.keyword,
+          $options: "i",
+        },
+      }
+    : {};
+
+  const keywordCategory = req.query.keyword
+    ? {
+        category: {
+          $regex: req.query.keyword,
+          $options: "i",
+        },
+      }
+    : {};
+
+  const products = await Product.find({ $or: [{ ...keywordName }, { ...keywordBrand }, { ...keywordDescription }, { ...keywordCategory }] });
 
   res.json(products);
 });

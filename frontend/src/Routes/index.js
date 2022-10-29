@@ -40,6 +40,7 @@ const Routes = () => {
             <Route path="/admin/productlist" element={<ProductListPage />} />
             <Route path="/admin/product/:id/edit" element={<ProductEditPage />} />
             <Route path="/admin/orderlist" element={<OrderListPage />} />
+            <Route path="/search/:keyword" element={<HomePage />} exact />
             <Route path="/" element={<HomePage />} exact />
           </Route>
         </Switch>
