@@ -7,6 +7,7 @@ import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { listProducts } from "../actions/productActions";
 
+//
 const HomePage = () => {
   const dispatch = useDispatch();
   const { keyword } = useParams();
